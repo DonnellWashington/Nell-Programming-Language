@@ -6,7 +6,7 @@
 enum TokenType{
     IDENT,
     LPAREN,
-    PRINT,
+    TOK_PRINT,
     RPAREN,
     ENDLINE
 };
@@ -15,6 +15,8 @@ enum TokenType{
 struct Token{
     std::string value;
     TokenType type;
+
+    Token(TokenType t, std::string v) : type(t), value(v) {}    // Constructor
 };
 
 

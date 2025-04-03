@@ -11,19 +11,31 @@ class Lexer {
 public:
     // Lexer(const std::string& input);
 
+    // A function to take input and tokenize it then return a vector of tokens
     std::vector<Token> tokenize(){
         std::vector<Token> tokens;
+        std::string word = "";
 
-        while (pos < input.size()){
-            char currChar = input[pos];
+        // Loop over the input
+        for (char c : input){
+            char currentChar = input[pos];    // this line technically isnt needed c is the current char
+            if (std::isspace(currentChar)){
+                pos++;
+            }
+            // Check if the word is equal to print 
+            else if (!std::isalpha(c)){
+                word += c;
+                if (word == "print"){
+                    tokens.push_back({ TOK_PRINT, "print"});
+                }
 
-            if (std)
-            {
-                /* code */
+                word = "";
+                
             }
             
         }
         
+        return tokens;
 
     }
 
