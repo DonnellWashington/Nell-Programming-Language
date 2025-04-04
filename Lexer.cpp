@@ -14,16 +14,78 @@ public:
     // A function to take input and then extract the tokens from it and put them into a vector
     std::vector<Token> Tokenize(){
         std::vector<Token> tokens;
-        std::string word = "";
+        std::string token = "";
 
+        TokenType type = tokenWords[token];
 
+        char currChar = pos;
+        char nextChar = pos + 1;
+        int inputSize = input.length();
+
+        while(currChar != inputSize){
+            if (isspace(currChar)) pos++;
+
+            else if (isalpha(currChar)){
+                token += currChar;
+                
+                switch (type){
+                case TOK_PRINT:
+                    tokens.emplace_back( TOK_PRINT, "print");
+                    if (input[nextChar] == '('){
+                        tokens.push_back(Token{TOK_LPAREN, "("});
+                    }
+                    break;
+                
+                case TOK_IF:
+                    tokens.emplace_back( TOK_IF, "if");
+                    if (input[nextChar] == '('){
+                        tokens.push_back(Token{TOK_LPAREN, "("});
+                    }
+                    break;
+                
+                case TOK_SEMIC:
+                    tokens.push_back(Token{ TOK_SEMIC, ";"});
+                    break;
+                
+                case TOK_LPAREN:
+                    tokens.push_back(Token{ TOK_LPAREN, "("});
+                    break;
+
+                    // We need to find the quotation and know thats its data to print and not a token
+
+                    
+
+                // // If we encounter a quotes we need to know that the user wants to print that data
+                // // And it cant be mistaken for a token
+                // case TOK_LQUOTA:
+                //     tokens.emplace_back( TOK_DAT, 
+
+                
+                default:
+                    break;
+                }
+                
+            }
+            
+            
+        }
 
         return tokens;
 
     }
 
+    // I will probably add a function to check the parens here
+
+
+    // And maybe one to skip white space here
+
 private:
+
+    size_t pos = 0;
+
     std::string input;
+
+    // NEED TO UPDATE THE KEYS HERE!
     std::unordered_map<std::string, TokenType> tokenWords = {
         {"print", TOK_PRINT},
         {"(", TOK_LPAREN},
@@ -35,96 +97,3 @@ private:
     };
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Lexer {
-
-//     public:
-    
-//         // A function to take input and tokenize it then return a vector of tokens
-//         std::vector<Token> tokenize(){
-//             std::vector<Token> tokens;
-//             std::string word = "";
-    
-//             char currChar = input[pos];
-    
-//             while (pos < input.size()){
-//                 if (std::isspace(currChar)) pos++;
-//                 // If we come across a char we need to keep reading it in until the end of the token or maybe until another token is reached
-//                 else if (isalpha(currChar)){
-//                     word += currChar;
-//                     pos++;
-    
-//                     if (word == "print"){
-//                         tokens.emplace_back(TOK_PRINT, "print");
-//                     }
-                    
-//                     word = "";
-    
-//                 }
-                
-//                 else if (std::isdigit(currChar)){
-//                     tokens.emplace_back(TOK_DIGIT, currChar);
-//                     pos++;
-//                 }
-                
-//                 else if (currChar == '('){
-//                     tokens.emplace_back(TOK_LPAREN, currChar);
-//                     pos++;
-//                 }
-    
-//                 else if (currChar == ')'){
-//                     tokens.emplace_back(TOK_RPAREN, currChar);
-//                     pos++;
-//                 }
-    
-//                 else {
-//                     throw std::runtime_error("Unknown character");
-//                 }
-    
-//             }
-    
-//             // //Loop over the input
-//             // for (char c : input){
-//             //     char currentChar = input[pos];    // this line technically isnt needed c is the current char
-//             //     if (std::isspace(currentChar)){
-//             //         pos++;
-//             //     }
-//             //     // Check if the word is equal to print 
-//             //     else if (!std::isalpha(c)){
-//             //         word += c;
-//             //         if (word == "print"){
-//             //             tokens.push_back({ TOK_PRINT, "print"});
-//             //         }
-    
-//             //         word = "";
-                    
-//             //     }
-            
-            
-//             // return tokens;
-//             // }
-//         }
-            
-    
-    
-    
-//     private:
-//         std::unordered_map<std::string, TokenType> tokenWords;
-//         std::string input;
-//         size_t pos;
-    
-//     };
-    

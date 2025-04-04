@@ -11,6 +11,10 @@ enum TokenType{
     TOK_LQUOTA,
     TOK_RQUOTA,
     TOK_SEMIC,
+    TOK_IF,
+    TOK_WHILE,
+    TOK_FOR,
+    TOK_DATA,
 };
 
 
