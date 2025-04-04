@@ -29,6 +29,8 @@ public:
                 token += currChar;
                 
                 switch (type){
+
+                //Stick to the thing and just make tokens spilt them into tokens and put them into the uh vector
                 case TOK_PRINT:
                     tokens.emplace_back( TOK_PRINT, "print");
                     if (input[nextChar] == '('){
@@ -36,37 +38,41 @@ public:
                     }
                     break;
                 
+                case TOK_LPAREN:
+                    tokens.push_back(Token{ TOK_LPAREN, "("});
+                    break;
+                
+                case TOK_RPAREN:
+                    tokens.push_back(Token{ TOK_RPAREN, ")"});
+                    break;
+
                 case TOK_IF:
                     tokens.emplace_back( TOK_IF, "if");
                     if (input[nextChar] == '('){
                         tokens.push_back(Token{TOK_LPAREN, "("});
                     }
                     break;
-                
+
                 case TOK_SEMIC:
                     tokens.push_back(Token{ TOK_SEMIC, ";"});
                     break;
+
                 
-                case TOK_LPAREN:
-                    tokens.push_back(Token{ TOK_LPAREN, "("});
+                case TOK_LQUOTA:
+                    tokens.push_back(Token{ TOK_LQUOTA, "\""});
+                    break;
+                
+                case TOK_RQUOTA:
+                    tokens.push_back(Token{ TOK_LQUOTA, "\""});
                     break;
 
-                    // We need to find the quotation and know thats its data to print and not a token
-
-                    
-
-                // // If we encounter a quotes we need to know that the user wants to print that data
-                // // And it cant be mistaken for a token
-                // case TOK_LQUOTA:
-                //     tokens.emplace_back( TOK_DAT, 
-
-                
                 default:
+                    // Throw an error here if the value they entered wasnt right I guess...
+                    
                     break;
                 }
                 
             }
-            
             
         }
 
