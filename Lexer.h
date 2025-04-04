@@ -4,12 +4,13 @@
 #include<string>
 
 enum TokenType{
-    // IDENT,
     TOK_LPAREN,
     TOK_PRINT,
     TOK_DIGIT,
     TOK_RPAREN,
-    // TOK_ENDLINE
+    TOK_LQUOTA,
+    TOK_RQUOTA,
+    TOK_SEMIC,
 };
 
 
