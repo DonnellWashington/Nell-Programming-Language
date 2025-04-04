@@ -7,8 +7,11 @@ using namespace std;
 
 int main(){
 
-    std::string input = "print('Hello World');";
-    
+    std::string input = "print";
+    Lexer lexer(input);
+    std::vector<Token> tokens = lexer.Tokenize();
+
+    lexer.printTokens(tokens);
 
     return 0;
 
