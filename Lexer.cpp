@@ -71,6 +71,10 @@ public:
                 }
                 
             }
+
+            else {
+                std::cout << "Houston we has a problem";
+            }
             
         }
 
