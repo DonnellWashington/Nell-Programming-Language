@@ -25,5 +25,4 @@ struct Token{
     Token(TokenType t, std::string v) : type(t), value(v) {}    // Constructor
 };
 
-
 #endif
