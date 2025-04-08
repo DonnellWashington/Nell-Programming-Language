@@ -19,7 +19,7 @@ public:
 
         size_t len = strlen(syn);
 
-        for(int i = 0; i < len; i++){
+        for(size_t i = 0; i < len; i++){
             char currChar = syn[i];
 
             // First we need to skip the spaces
