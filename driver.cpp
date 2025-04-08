@@ -7,9 +7,9 @@ using namespace std;
 
 int main(){
 
-    std::string input = "print";
+    const char* input = "print";
     Lexer lexer(input);
-    std::vector<Token> tokens = lexer.Tokenize();
+    std::vector<Token> tokens = lexer.Tokenize(input);
 
     lexer.printTokens(tokens);
 

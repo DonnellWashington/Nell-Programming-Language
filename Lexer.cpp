@@ -2,6 +2,7 @@
 #include<ostream>
 #include<vector>
 #include<string>
+#include<cstring>
 #include<unordered_map>
 #include"lexer.h"
 
@@ -11,15 +12,15 @@ public:
     Lexer(const std::string& src) : input(src){}
 
     // A function to take input and then extract the tokens from it and put them into a vector
-    std::vector<Token> Tokenize(){
+    std::vector<Token> Tokenize(const char* syn){
         std::string token = "";
 
         TokenType type = tokenWords[token];
 
-        int inputLen = input.length();
+        size_t len = strlen(syn);
 
-        for(int i = 0; i < inputLen; i++){
-            char currChar = input[i];
+        for(int i = 0; i < len; i++){
+            char currChar = syn[i];
 
             // First we need to skip the spaces
             if (isspace(currChar)) skipSpaces(pos);
@@ -32,14 +33,10 @@ public:
                     token = "";
                 }
                 
-
             }
             
-            
         }
-
         return tokens;
-
     }
 
     // I will probably add a function to check the parens here
@@ -60,10 +57,9 @@ public:
 private:
 
     std::vector<Token> tokens;
+    std::string input;
 
     int *pos = 0;
-
-    std::string input = "print";
     
     std::unordered_map<TokenType, std::string> reverseTokenWords = {
         {TOK_PRINT, "TOK_PRINT"},
