@@ -11,7 +11,6 @@ int main(){
     Lexer lexer(input);
     std::vector<Token> tokens = lexer.Tokenize();
 
-    
     lexer.printTokens(tokens);
 
     return 0;
