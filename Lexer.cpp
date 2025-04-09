@@ -14,25 +14,57 @@ public:
     // A function to take input and then extract the tokens from it and put them into a vector
     std::vector<Token> Tokenize(const char* syn){
         std::string token = "";
+        std::string stringLit = "";
 
-        TokenType type = tokenWords[token];
+        // TokenType type = tokenWords[token]; unused var
 
         size_t len = strlen(syn);
 
         for(size_t i = 0; i < len; i++){
             char currChar = syn[i];
+            char nextChar = syn[i + 1];
 
             // First we need to skip the spaces
-            if (isspace(currChar)) skipSpaces(pos);
+            if (isspace(currChar)){
+                continue;
+            } 
 
-            else if (isalpha(currChar)){
+            else if (std::isalpha(currChar)){
                 token += currChar;
 
                 if (token == "print"){
                     tokens.push_back(Token{TOK_PRINT, "print"});
                     token = "";
                 }
-                
+            }
+            else if (currChar == '('){
+                tokens.push_back(Token{TOK_LPAREN, "("});
+                token = "";
+            }
+            else if (currChar == '\"'){
+                tokens.push_back(Token{TOK_LQUOTA, "\""});
+                i++;
+                // Check for the string litreral
+
+                stringLit = "";
+                while (i < len && nextChar != '\"'){
+                    stringLit += currChar;
+                    i++;
+                }
+
+                tokens.push_back(Token{TOK_DATA, stringLit});
+
+                if (i < len && currChar == '\"'){
+                    tokens.push_back(Token{TOK_RQUOTA, "\""});
+                }
+            }
+            else if (currChar == ')'){
+                tokens.push_back(Token{TOK_RPAREN, ")"});
+                token = "";
+            }
+            else if (currChar == ';'){
+                tokens.push_back(Token{TOK_SEMIC, ";"});
+                token = "";
             }
             
         }
@@ -42,10 +74,10 @@ public:
     // I will probably add a function to check the parens here
 
 
-    // Function to skip white space
-    void skipSpaces(int *pos){
-        if (isspace(*pos)) pos++;
-    }
+    // Function to skip white space(not needed now but may come in handy later)
+    // void skipSpaces(int *pos){
+    //     if (isspace(*pos)) pos++;
+    // }
 
     // A function to print the token that have been retreived from input
     void printTokens(const std::vector<Token>& tokens){
