@@ -16,15 +16,13 @@ public:
         std::string token = "";
         std::string stringLit = "";
 
-        // TokenType type = tokenWords[token]; unused var
+        size_t synLen = strlen(syn);
 
-        size_t len = strlen(syn);
-
-        for(size_t i = 0; i < len; i++){
+        for(size_t i = 0; i < synLen; i++){
             char currChar = syn[i];
             char nextChar = syn[i + 1];
 
-            // First we need to skip the spaces
+            // First we need to skip the spaces if any...
             if (isspace(currChar)){
                 continue;
             } 
@@ -45,18 +43,19 @@ public:
                 tokens.push_back(Token{TOK_LQUOTA, "\""});
                 i++;
                 // Check for the string litreral
-
                 stringLit = "";
-                while (i < len && nextChar != '\"'){
-                    stringLit += currChar;
+                // Loop over the input while not at the end and not ending quotes
+                // Check if ending quotes are reached and push stringLit and ending/ right quote to vector 
+                while(i < synLen && syn[i] != '\"'){
+                    stringLit += syn[i];
                     i++;
                 }
 
-                tokens.push_back(Token{TOK_DATA, stringLit});
-
-                if (i < len && currChar == '\"'){
+                if (i < synLen && syn[i] == '\"'){
+                    tokens.push_back(Token{TOK_DATA, stringLit});
                     tokens.push_back(Token{TOK_RQUOTA, "\""});
                 }
+                
             }
             else if (currChar == ')'){
                 tokens.push_back(Token{TOK_RPAREN, ")"});
@@ -97,25 +96,13 @@ private:
         {TOK_PRINT, "TOK_PRINT"},
         {TOK_LPAREN, "TOK_LPAREN"},
         {TOK_RPAREN, "TOK_RPAREN"},
+        {TOK_DATA, "TOK_DATA"},
         {TOK_LQUOTA, "TOK_LQUOTA"},
         {TOK_RQUOTA, "TOK_RQUOTA"},
         {TOK_SEMIC, "TOK_SEMIC"},
         {TOK_IF, "TOK_IF"},
         {TOK_WHILE, "TOK_WHILE"},
         {TOK_FOR, "TOK_FOR"},
-    };
-
-    std::unordered_map<std::string, TokenType> tokenWords = {
-        {"print", TOK_PRINT},
-        {"(", TOK_LPAREN},
-        {")", TOK_RPAREN},
-        {"\"", TOK_LQUOTA},
-        {"\"", TOK_RQUOTA},
-        {";", TOK_SEMIC},
-        {"if", TOK_IF},
-        {"while", TOK_WHILE},
-        {"for", TOK_FOR},
-
     };
 
 };

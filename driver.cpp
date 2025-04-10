@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
 
-    const char* input = "print";
+    const char* input = "print(\"Hellow World\");";
     Lexer lexer(input);
     std::vector<Token> tokens = lexer.Tokenize(input);
 
